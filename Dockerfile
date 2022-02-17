@@ -12,3 +12,6 @@ COPY src/ src/
 
 CMD [ "node", "src/index.js" ]
 EXPOSE "3000"
+
+
+LABEL tp.docker.workshop="app"

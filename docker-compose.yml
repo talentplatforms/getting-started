@@ -1,0 +1,34 @@
+version: '3.7'
+
+networks:
+  net__backend: ~
+
+services:
+  app:
+    image: local/getting-started:1
+    build:
+      context: .
+    environment:
+      MYSQL_DB: ${DB_DB}
+      MYSQL_PASSWORD: ${DB_PW}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_HOST: ${DB_HOST}
+    depends_on:
+      - mysql
+    ports:
+      - 3000:3000
+    networks:
+      - net__backend
+
+  mysql:
+    image: mysql:5.7.37
+    container_name: ${DB_HOST}
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PW}
+      MYSQL_DATABASE: ${DB_DB}
+      MYSQL_PASSWORD: ${DB_PW}
+      MYSQL_USER: ${DB_USER}
+    ports:
+      - 3306:3306
+    networks:
+      - net__backend
